@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css.css">
+    <script src="../misc/index.js"></script>
+
+    
+
+    <title>Editor HTML Page test</title>
+</head>
+<body>
+
+    <div class="sheet-container">
+        <div class="editor" id="gc-editor">
+
+        </div>
+    </div>
+
+    <script>
+        
+        var editor = new gcEditor({
+            editor : "gc-editor"
+        })
+
+        editor.init();
+
+        console.log(editor.getContent())
+
+    </script>
+    
+</body>
+</html>

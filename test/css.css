@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.sheet-container .editor {
+    width: 8.5in;
+    min-height: 11in;
+    padding: 1in;
+    margin: 1rem;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+    background-color: white;
+
+  }
+
+  .line:focus {
+    outline: none;
+  }
+
+  /* .sheet-container .container.ql-snow {
+    border: none;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sheet-container .ql-toolbar.ql-snow {
+      
+      position: sticky;
+      top: 0px;
+      z-index: 1;
+      background-color: #F3F3F3;
+
+  }
+  
+  .sheet-container .viewer .ql-toolbar.ql-snow {
+    display: none;
+  } */
+  
+
+  @page {
+    margin: 1in;
+  }
+
