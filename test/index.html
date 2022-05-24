@@ -7,14 +7,12 @@
 
     <link rel="stylesheet" href="css.css">
     <script src="../misc/index.js"></script>
-
-    
-
     <title>Editor HTML Page test</title>
 </head>
 <body>
 
     <div class="sheet-container">
+        <div class="menu" id="menu"></div>
         <div class="editor" id="gc-editor">
 
         </div>
@@ -23,12 +21,29 @@
     <script>
         
         var editor = new gcEditor({
-            editor : "gc-editor"
+            editor : "gc-editor",
+            menu : "menu"
         })
 
         editor.init();
 
-        console.log(editor.getContent())
+
+        // Init a timeout variable to be used below
+        let timeout = null;
+
+        // Listen for keystroke events
+        document.addEventListener('change', function (e) {
+            console.log("type")
+            // Clear the timeout if it has already been set.
+            // This will prevent the previous task from executing
+            // if it has been less than <MILLISECONDS>
+            clearTimeout(timeout);
+
+            // Make a new timeout set to go off in 1000ms (1 second)
+            timeout = setTimeout(function () {
+                console.log(editor.getContent());
+            }, 500);
+        });
 
     </script>
     
