@@ -1,10 +1,3 @@
-interface content {
-    src: string;
-    tag:string,
-    text:string
-    id: string,
-}
-
 function uid() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2); 
 }
@@ -26,10 +19,6 @@ var lastInput;
 var lastSelect;
 
 class gcEditor {
-    element: HTMLElement
-    content: string[]
-    menu: HTMLElement;
-
     constructor (editor, menu, content) {
         this.element = document.getElementById(editor),
         this.menu = document.getElementById(menu)
@@ -55,18 +44,18 @@ class gcEditor {
 
             this.content.map((line) => {
                 
-                    if ((<content><unknown>line).tag === "IMG") {
+                    if (line.tag === "IMG") {
                         var img = document.createElement("img");
-                            img.src = (<content><unknown>line).src;
+                            img.src = line.src;
                             img.className = "line"
-                            img.id = (<content><unknown>line).id;
+                            img.id = line.id;
                             img.contentEditable = "true"
                         this.element.appendChild(img)
                     } else {
-                        var ln = document.createElement((<content><unknown>line).tag);
-                            ln.innerHTML = (<content><unknown>line).text;
+                        var ln = document.createElement(line.tag);
+                            ln.innerHTML = line.text;
                             ln.className = "line"
-                            ln.id = (<content><unknown>line).id;
+                            ln.id = line.id;
                             ln.contentEditable = "true"
                         this.element.appendChild(ln)
                     }
@@ -209,7 +198,7 @@ class gcEditor {
                 input.type = "file"
                 input.addEventListener('change', (event) => {
 
-                    var file = (<HTMLInputElement>event.target).files[0];
+                    var file = event.target.files[0];
                     var blob = URL.createObjectURL(file);
                     var img = document.createElement('img');
                         img.className = "line";

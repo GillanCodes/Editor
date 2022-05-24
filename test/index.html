@@ -20,19 +20,37 @@
 
     <script>
         
+const content = [
+    {tag:'p', text:'dsqqdqsd' , id:"1"}, {tag:'p', text:'dsqqdqsd', id:"2"},{tag:'p', text:'dsqqdqsd', id:"3"},{tag:'p', text:'dsqqdqsd', id:"4"},{tag:'p', text:'dsqqdqsd', id:"5"},
+    {tag: 'IMG', src: "./img", id:'mig'}
+]
+
         var editor = new gcEditor({
             editor : "gc-editor",
-            menu : "menu"
+            menu : "menu",
+            content
         })
 
         editor.init();
-
 
         // Init a timeout variable to be used below
         let timeout = null;
 
         // Listen for keystroke events
         document.addEventListener('change', function (e) {
+            console.log("type")
+            // Clear the timeout if it has already been set.
+            // This will prevent the previous task from executing
+            // if it has been less than <MILLISECONDS>
+            clearTimeout(timeout);
+
+            // Make a new timeout set to go off in 1000ms (1 second)
+            timeout = setTimeout(function () {
+                console.log(editor.getContent());
+            }, 500);
+        });
+
+        document.addEventListener('keyup', function (e) {
             console.log("type")
             // Clear the timeout if it has already been set.
             // This will prevent the previous task from executing
