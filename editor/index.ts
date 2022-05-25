@@ -30,7 +30,7 @@ class gcEditor {
     content: string[]
     menu: HTMLElement;
 
-    constructor (editor, menu, content) {
+    constructor ({editor, menu, content}) {
         this.element = document.getElementById(editor),
         this.menu = document.getElementById(menu)
         this.content = content;

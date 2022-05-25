@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import editor from "./index"
+import Gceditor from "./index"
 
 const load = () => {
-
 
     const test = new Gceditor({
         editor: "gc-editor",
@@ -15,8 +14,8 @@ const load = () => {
 export default function EditorPage() {
 
   return (
-    <div onClick={load}>
-        <h1>Click</h1>
+    <div>
+        <h1 onClick={load}>Click</h1>
         <div id="gc-menu"></div>
         <div className="editor" id="gc-editor"></div>
     </div>

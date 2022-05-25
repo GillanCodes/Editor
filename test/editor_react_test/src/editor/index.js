@@ -11,11 +11,14 @@ function setCaret(lineId) {
     sel.addRange(range);
 }
 var keyMap = { enter: 13, backSpace: 8, arrowUp: 38, arrowDown: 40, ctrl: 17, tab: 9 };
+var dLnTry = 0;
+var lastInput;
 var lastSelect;
 var gcEditor = /** @class */ (function () {
-    function gcEditor({editor, menu, content}) {
+    function gcEditor(_a) {
+        var editor = _a.editor, menu = _a.menu, content = _a.content;
         this.element = document.getElementById(editor),
-        this.menu = document.getElementById(menu);
+            this.menu = document.getElementById(menu);
         this.content = content;
         this.onkeyup = this.onkeyup.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -55,12 +58,10 @@ var gcEditor = /** @class */ (function () {
         document.addEventListener('keyup', this.onkeyup);
         document.addEventListener('click', this.onClick);
         document.addEventListener('keydown', this.onKeyDown);
-
         if (this.menu == null)
             throw Error("'menu' params do not exist");
         if (this.menu.tagName !== "DIV")
             throw Error("'menu' params must be an ID of a 'Div' element !");
-            
         var menuEle = document.createElement("div");
         menuEle.className = "menu";
         menuEle.innerHTML = "<ul><li id='title'>Heading</li><li id='paragraph'>Normal</li><li id='picture'>Pic</li></ul><ul><li>button</li></ul>";
