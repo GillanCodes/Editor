@@ -23,29 +23,25 @@
 
   .line:focus {
     outline: none;
-  }
-
-  /* .sheet-container .container.ql-snow {
-    border: none;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .sheet-container .ql-toolbar.ql-snow {
-      
-      position: sticky;
-      top: 0px;
-      z-index: 1;
-      background-color: #F3F3F3;
-
-  }
-  
-  .sheet-container .viewer .ql-toolbar.ql-snow {
-    display: none;
-  } */
-  
+  }  
 
   @page {
     margin: 1in;
+  }
+
+  input[type="file"].line  {
+    display: none;
+  }
+
+  .UploadButton {
+    display: flex;
+    height: 64px;
+    width: 64px;
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+    color: white;
+    background-color: rgb(157, 157, 255);
   }
 

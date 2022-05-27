@@ -211,9 +211,12 @@ class gcEditor {
                 var input =  document.createElement('input');
                 input.className = "line";
                 input.id = selected.id;
-                input.type = "file"
+                input.type = "file";
+                var label = document.createElement('label');
+                    label.htmlFor = selected.id;
+                    label.className = "UploadButton";
+                    label.innerText = "+"
                 input.addEventListener('change', (event) => {
-
                     var file = (<HTMLInputElement>event.target).files[0];
                     var blob = URL.createObjectURL(file);
                     var img = document.createElement('img');
@@ -221,9 +224,15 @@ class gcEditor {
                         img.id = selected.id;
                         img.src = blob;
                         img.contentEditable = "true"
-                    input.replaceWith(img)
+                    divImage.replaceWith(img)
                 })
-                selected.replaceWith(input)
+
+                var divImage = document.createElement('div');
+                    divImage.className = "line";
+                    divImage.appendChild(label);
+                    divImage.appendChild(input);
+
+                selected.replaceWith(divImage)
                 break;
             default:
                 break;
