@@ -13,13 +13,12 @@
     background-color: white;
   }
 
-  .line br {
-    display: none;
+  .line br:first-child {
+    display: inline-block;
   }  
 
-  .line {
-    display: block;
-    border: 1px solid violet;
+  .line br {
+    display: none;
   }
 
   .line:focus {

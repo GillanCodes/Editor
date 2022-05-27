@@ -14,11 +14,12 @@ function setCaret(lineId) {
     var range = document.createRange()
     var sel = window.getSelection()
     range.setStart(el.lastChild, (<any>el.lastChild).length)
-    console.log(el.lastChild);
     range.collapse(true)
     
     sel.removeAllRanges()
     sel.addRange(range)
+
+    lastSelect = el.id
 }
 
 const keyMap = {enter: 13, backSpace:8, arrowUp: 38, arrowDown: 40, ctrl: 17, tab: 9};
@@ -102,7 +103,7 @@ class gcEditor {
             ln.id = uid();
             ln.className = "line";
             ln.contentEditable = "true";
-            ln.innerHTML = '\n';
+            ln.innerText = '\n';
             this.element.insertBefore(ln, child);
             setCaret(ln.id)
         return ln
@@ -115,7 +116,6 @@ class gcEditor {
         try {
             setCaret(ln.previousElementSibling.id)
         } catch (error) {
-            console.log(error)
             setCaret(this.element.firstElementChild.id)
         }
         ln.remove();
@@ -158,6 +158,7 @@ class gcEditor {
                 
                 var ln = document.getElementById(event.target.id);
                 if (ln === null) {
+                    event.preventDefault();
                     if (lastSelect) {
                         var notALine = document.getElementById(lastSelect)
                         if (notALine.tagName === "IMG") {
@@ -171,7 +172,7 @@ class gcEditor {
                         
                     }
                 } else {
-                   if (ln.innerText === ''){
+                   if (ln.innerText === '\n'){
                          if (ln.previousElementSibling) {
                             event.preventDefault();
                             this.deleteLine(ln)
