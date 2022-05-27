@@ -17,9 +17,14 @@
     display: none;
   }  
 
-  /* .line:focus {
+  .line {
+    display: block;
+    border: 1px solid violet;
+  }
+
+  .line:focus {
     outline: none;
-  } */
+  }
 
   /* .sheet-container .container.ql-snow {
     border: none;

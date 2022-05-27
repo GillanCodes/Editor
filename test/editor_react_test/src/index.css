@@ -18,7 +18,12 @@
 
 .line:focus {
   outline: none;
-} */
+  cursor: text;  
+}
+
+.line *::after {
+  content: 'bite';
+}
 
 @page {
   margin: 1in;

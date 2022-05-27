@@ -73,7 +73,7 @@ var gcEditor = /** @class */ (function () {
         ln.id = uid();
         ln.className = "line";
         ln.contentEditable = "true";
-        ln.innerText = "\n";
+        ln.innerHTML = "&#8203";
         this.element.insertBefore(ln, child);
         setCaret(ln.id);
         return ln;

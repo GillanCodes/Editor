@@ -13,7 +13,8 @@ function setCaret(lineId) {
     var el = document.getElementById(lineId)
     var range = document.createRange()
     var sel = window.getSelection()
-    range.setStart(el.lastChild, 0)
+    range.setStart(el.lastChild, (<any>el.lastChild).length)
+    console.log(el.lastChild);
     range.collapse(true)
     
     sel.removeAllRanges()
@@ -67,7 +68,7 @@ class gcEditor {
                             ln.innerHTML = (<content><unknown>line).text;
                             ln.className = "line"
                             ln.id = (<content><unknown>line).id;
-                            ln.contentEditable = "true"
+                            ln.contentEditable = "true";
                         this.element.appendChild(ln)
                     }
                     
@@ -101,7 +102,7 @@ class gcEditor {
             ln.id = uid();
             ln.className = "line";
             ln.contentEditable = "true";
-            ln.innerText = "\n"
+            ln.innerHTML = '\n';
             this.element.insertBefore(ln, child);
             setCaret(ln.id)
         return ln
@@ -114,6 +115,7 @@ class gcEditor {
         try {
             setCaret(ln.previousElementSibling.id)
         } catch (error) {
+            console.log(error)
             setCaret(this.element.firstElementChild.id)
         }
         ln.remove();
@@ -153,6 +155,7 @@ class gcEditor {
                 }
                 break;
             case keyMap.backSpace:
+                
                 var ln = document.getElementById(event.target.id);
                 if (ln === null) {
                     if (lastSelect) {
@@ -168,8 +171,9 @@ class gcEditor {
                         
                     }
                 } else {
-                    if (ln.innerText === ''){
-                        if (ln.previousElementSibling) {
+                   if (ln.innerText === ''){
+                         if (ln.previousElementSibling) {
+                            event.preventDefault();
                             this.deleteLine(ln)
                         }
                     }
