@@ -54,3 +54,13 @@
   pre.code br {
     display: inline;
   }
+
+  pre.quote {
+    border-left: #858585 3px solid;
+    border-radius: 2px;
+    padding-left: 5px;
+  }
+
+  pre.quote br {
+    display: inline;
+  }

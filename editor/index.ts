@@ -34,6 +34,7 @@ const menuHtml =    "<ul> \
                     <ul>  \
                         <li id='list'>List</li> \
                         <li id='code_block'>Code</li> \
+                        <li id='code_quote'>Quote</li> \
                     </ul> \
                     <ul> \
                         <li id='text_left'>Left</li> \
@@ -297,6 +298,16 @@ class gcEditor {
                     block.contentEditable = "true";
                     block.innerText = selected.innerText;
                 selected.replaceWith(block)
+                break
+            case "code_quote":
+                var selected = document.getElementById(lastSelect);
+                var block = document.createElement('pre')
+                    block.className = "line quote";
+                    block.id = lastSelect;
+                    block.contentEditable = "true";
+                    block.innerText = selected.innerText;
+                selected.replaceWith(block)
+                break
             case 'text_left':
                 var selected = document.getElementById(lastSelect);
                 selected.style.textAlign = "left"
