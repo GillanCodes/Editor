@@ -124,7 +124,6 @@ class gcEditor {
     }
 
     deleteLine(ln) {
-        console.log(ln);
         try {
             setCaret(ln.previousElementSibling.id)
         } catch (error) {
@@ -205,12 +204,7 @@ class gcEditor {
                             event.preventDefault();
                             this.deleteLine(ln)
                         }
-                    } 
-
-                        // if (document.getElementById(event.target).tagName === "LI"){
-                        //     // this.deleteLine(document.getElementById(lastSelect));
-                        //     // this.createLine(this.element.firstChild);
-                        // }
+                    }
                 }
                 break
             default:
