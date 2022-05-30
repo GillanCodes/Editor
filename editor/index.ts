@@ -21,6 +21,13 @@ function setCaret(lineId) {
 
     lastSelect = el.id
 }
+
+function checkYoutubeLink(url: string) {
+    console.log(url)
+    const valid = new RegExp('^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube(-nocookie)?\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$')
+    return valid.test(url)
+}
+
 const menuHtml =    "<ul> \
                         <li id='title'>Heading</li> \
                         <li id='paragraph'>Normal</li> \
@@ -151,7 +158,7 @@ class gcEditor {
 
     onKeyDown (event) {
 
-        console.log(lastInput)
+        console.log(checkYoutubeLink(event.target.innerText))
 
         switch(event.keyCode) {
             case keyMap.tab:
