@@ -33,6 +33,11 @@ const menuHtml =    "<ul> \
                     </ul> \
                     <ul>  \
                         <li id='list'>List</li> \
+                    </ul> \
+                    <ul> \
+                        <li id='text_left'>Left</li> \
+                        <li id='text_center'>Center</li> \
+                        <li id='text_right'>Right</li> \
                     </ul>";
 
 const keyMap = {enter: 13, backSpace:8, arrowUp: 38, arrowDown: 40, ctrl: 17, tab: 9};
@@ -275,6 +280,18 @@ class gcEditor {
                 setCaret(listChild.id)
                 list.appendChild(listChild);
                 selected.replaceWith(list);
+                break;
+            case 'text_left':
+                var selected = document.getElementById(lastSelect);
+                selected.style.textAlign = "left"
+                break;
+            case 'text_center':
+                var selected = document.getElementById(lastSelect);
+                selected.style.textAlign = "center"
+                break;
+            case 'text_right':
+                var selected = document.getElementById(lastSelect);
+                selected.style.textAlign = "right"
                 break;
             default:
                 break;
