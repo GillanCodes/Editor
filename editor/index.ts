@@ -123,14 +123,12 @@ class gcEditor {
         return ln
     }
 
-        
-
-
     deleteLine(ln) {
+        console.log(ln);
         try {
             setCaret(ln.previousElementSibling.id)
         } catch (error) {
-            setCaret(this.element.firstElementChild.id)
+            setCaret(this.element.firstElementChild.id);
         }
         ln.remove();
     }
@@ -153,7 +151,18 @@ class gcEditor {
                 break;
             case keyMap.enter:
                 event.preventDefault();
-                this.createLine(event.target.nextElementSibling);
+                if (event.target.tagName === 'UL') {
+                    var listChild = document.createElement('li');
+                        listChild.className = "line";
+                        listChild.id = uid();
+                        listChild.contentEditable = "true"
+                        listChild.innerText = "\n"
+                    event.target.appendChild(listChild);
+                    setCaret(listChild.id)
+                } else {
+                    this.createLine(event.target.nextElementSibling);
+                }
+                
                 break;
             case keyMap.arrowUp:
                 event.preventDefault();
@@ -185,12 +194,23 @@ class gcEditor {
                         
                     }
                 } else {
-                   if (ln.innerText === '\n'){
-                         if (ln.previousElementSibling) {
+                    if (ln.tagName == "UL") {
+                        if (ln.innerText === '\n') {
+                            event.preventDefault();
+                            this.deleteLine(ln)
+                            this.createLine(this.element.firstChild)
+                        }
+                    } else if (ln.innerText === '\n'){
+                        if (ln.previousElementSibling) {
                             event.preventDefault();
                             this.deleteLine(ln)
                         }
-                    }
+                    } 
+
+                        // if (document.getElementById(event.target).tagName === "LI"){
+                        //     // this.deleteLine(document.getElementById(lastSelect));
+                        //     // this.createLine(this.element.firstChild);
+                        // }
                 }
                 break
             default:
@@ -256,6 +276,9 @@ class gcEditor {
                 var listChild = document.createElement('li');
                     listChild.className = "line";
                     listChild.id = selected.id;
+                    listChild.contentEditable = "true";
+                    listChild.innerText = '\n';
+                setCaret(listChild.id)
                 list.appendChild(listChild);
                 selected.replaceWith(list);
                 break;
