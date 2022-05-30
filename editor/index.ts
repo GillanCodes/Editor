@@ -21,11 +21,25 @@ function setCaret(lineId) {
 
     lastSelect = el.id
 }
+const menuHtml =    "<ul> \
+                        <li id='title'>Heading</li> \
+                        <li id='paragraph'>Normal</li> \
+                        <li id='picture'>Pic</li> \
+                    </ul> \
+                    <ul> \
+                        <li id='bold'>Bold</li> \
+                        <li id='italic'>Italic</li> \
+                        <li id='underline'>Underline</li> \
+                    </ul> \
+                    <ul>  \
+                        <li id='list'>List</li> \
+                    </ul>";
 
 const keyMap = {enter: 13, backSpace:8, arrowUp: 38, arrowDown: 40, ctrl: 17, tab: 9};
 var dLnTry = 0;
 var lastInput;
 var lastSelect;
+var lastText;
 
 class gcEditor {
     element: HTMLElement
@@ -91,7 +105,7 @@ class gcEditor {
 
         var menuEle = document.createElement("div")
         menuEle.className = "menu"
-        menuEle.innerHTML = "<ul><li id='title'>Heading</li><li id='paragraph'>Normal</li><li id='picture'>Pic</li></ul><ul><li>button</li></ul>";
+        menuEle.innerHTML = menuHtml;
         menuEle.addEventListener('click', this.menuClickHandle)
         this.menu.replaceWith(menuEle)
 
@@ -121,15 +135,14 @@ class gcEditor {
         ln.remove();
     }
 
-    onClick(event) {
-        //setCaret(event.target)
+    onClick(event) { //Click Event
         if (event.target.id === this.element.id) {
             setCaret(event.target.childNodes[0].id);
         }
 
         if (event.target.className === "line") {
             lastSelect = event.target.id;
-        }
+        }              
     }
 
     onKeyDown (event) {
@@ -233,6 +246,18 @@ class gcEditor {
                     divImage.appendChild(input);
 
                 selected.replaceWith(divImage)
+                break;
+            case 'list' :
+                var selected = document.getElementById(lastSelect);
+                var list =  document.createElement('ul');
+                    list.className = "line";
+                    list.id = selected.id;
+                    list.contentEditable = "true";
+                var listChild = document.createElement('li');
+                    listChild.className = "line";
+                    listChild.id = selected.id;
+                list.appendChild(listChild);
+                selected.replaceWith(list);
                 break;
             default:
                 break;
