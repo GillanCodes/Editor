@@ -45,3 +45,12 @@
     background-color: rgb(157, 157, 255);
   }
 
+  pre.code {
+    background-color: #272822;
+    padding: 10px;
+    color: white;
+  }
+
+  pre.code br {
+    display: inline;
+  }

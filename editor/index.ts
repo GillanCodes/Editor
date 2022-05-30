@@ -33,6 +33,7 @@ const menuHtml =    "<ul> \
                     </ul> \
                     <ul>  \
                         <li id='list'>List</li> \
+                        <li id='code_block'>Code</li> \
                     </ul> \
                     <ul> \
                         <li id='text_left'>Left</li> \
@@ -40,7 +41,7 @@ const menuHtml =    "<ul> \
                         <li id='text_right'>Right</li> \
                     </ul>";
 
-const keyMap = {enter: 13, backSpace:8, arrowUp: 38, arrowDown: 40, ctrl: 17, tab: 9};
+const keyMap = {enter: 13, backSpace:8, arrowUp: 38, arrowDown: 40, ctrl: 17, shift: 16, tab: 9};
 var dLnTry = 0;
 var lastInput;
 var lastSelect;
@@ -149,13 +150,15 @@ class gcEditor {
 
     onKeyDown (event) {
 
+        console.log(lastInput)
+
         switch(event.keyCode) {
             case keyMap.tab:
                 event.preventDefault();
                 break;
             case keyMap.enter:
-                event.preventDefault();
                 if (event.target.tagName === 'UL') {
+                    event.preventDefault();
                     var listChild = document.createElement('li');
                         listChild.className = "line";
                         listChild.id = uid();
@@ -163,7 +166,13 @@ class gcEditor {
                         listChild.innerText = "\n"
                     event.target.appendChild(listChild);
                     setCaret(listChild.id)
+                } else if (event.target.tagName === "PRE") {
+                    if (lastInput === keyMap.shift) {
+                        event.preventDefault();
+                        this.createLine(event.target.nextElementSibling);
+                    }
                 } else {
+                    event.preventDefault();
                     this.createLine(event.target.nextElementSibling);
                 }
                 
@@ -181,7 +190,6 @@ class gcEditor {
                 }
                 break;
             case keyMap.backSpace:
-                
                 var ln = document.getElementById(event.target.id);
                 if (ln === null) {
                     event.preventDefault();
@@ -198,7 +206,7 @@ class gcEditor {
                         
                     }
                 } else {
-                    if (ln.tagName == "UL") {
+                    if (ln.tagName == "UL" || ln.tagName == "PRE") {
                         if (ln.innerText === '\n') {
                             event.preventDefault();
                             this.deleteLine(ln)
@@ -281,6 +289,14 @@ class gcEditor {
                 list.appendChild(listChild);
                 selected.replaceWith(list);
                 break;
+            case "code_block":
+                var selected = document.getElementById(lastSelect);
+                var block = document.createElement('pre')
+                    block.className = "line code";
+                    block.id = lastSelect;
+                    block.contentEditable = "true";
+                    block.innerText = selected.innerText;
+                selected.replaceWith(block)
             case 'text_left':
                 var selected = document.getElementById(lastSelect);
                 selected.style.textAlign = "left"
@@ -299,7 +315,7 @@ class gcEditor {
     } 
 
     onkeyup(event) {
-        
+        lastInput = event.keyCode
     }
 
     getContent() {
