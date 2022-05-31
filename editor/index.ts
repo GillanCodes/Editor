@@ -23,8 +23,7 @@ function setCaret(lineId) {
 }
 
 function checkYoutubeLink(url: string) {
-    console.log(url)
-    const valid = new RegExp('^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube(-nocookie)?\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$')
+    const valid = new RegExp('^(?:https?:)?(?:\\/\\/)?(?:youtu\\.be\\/|(?:www\\.|m\\.)?youtube\\.com\\/(?:watch|v|embed)(?:\\.php)?(?:\\?.*v=|\\/))([a-zA-Z0-9\_-]{7,15})(?:[\\?&][a-zA-Z0-9\\_-]+=[a-zA-Z0-9\\_-]+)*$')
     return valid.test(url)
 }
 
@@ -157,9 +156,6 @@ class gcEditor {
     }
 
     onKeyDown (event) {
-
-        console.log(checkYoutubeLink(event.target.innerText))
-
         switch(event.keyCode) {
             case keyMap.tab:
                 event.preventDefault();
@@ -198,6 +194,7 @@ class gcEditor {
                 }
                 break;
             case keyMap.backSpace:
+                console.log(event.target)
                 var ln = document.getElementById(event.target.id);
                 if (ln === null) {
                     event.preventDefault();
@@ -211,6 +208,7 @@ class gcEditor {
                                 this.deleteLine(notALine)
                             }
                         }
+                        console.log(notALine)
                         
                     }
                 } else {
@@ -222,6 +220,9 @@ class gcEditor {
                         }
                     } else if (ln.innerText === '\n'){
                         if (ln.previousElementSibling) {
+                            if (ln.previousElementSibling.tagName === "IFRAME") {
+                                this.deleteLine(ln.previousElementSibling)
+                            }
                             event.preventDefault();
                             this.deleteLine(ln)
                         }
@@ -333,7 +334,30 @@ class gcEditor {
     } 
 
     onkeyup(event) {
-        lastInput = event.keyCode
+        lastInput = event.keyCode;
+        // const valid = new RegExp('^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube(-nocookie)?\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$')
+        const valid = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+$/
+        if (valid.test(event.target.innerText.split('\n')[0])) {
+            
+            var embed = document.createElement('iframe')
+                embed.src = `https://youtube.com/embed/${event.target.innerText.split('\n')[0].split('v=')[1]}`;
+                embed.allowFullscreen
+                embed.width = "560"
+                embed.height = "315"
+                embed.contentEditable = "true"
+                embed.className = "line"
+                embed.id = event.target.id
+            event.target.replaceWith(embed);
+            var ln = document.createElement('p');
+                ln.id = uid();
+                ln.className = "line";
+                ln.contentEditable = "true";
+                ln.innerText = '\n';
+                this.element.appendChild(ln);
+                setCaret(ln.id)
+
+            this.createLine(embed)
+        }
     }
 
     getContent() {
