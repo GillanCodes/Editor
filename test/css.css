@@ -45,6 +45,10 @@
     background-color: rgb(157, 157, 255);
   }
 
+  .image {
+    width: 8.5in;
+  }
+
   pre.code {
     background-color: #272822;
     padding: 10px;

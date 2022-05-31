@@ -153,6 +153,10 @@ class gcEditor {
         if (event.target.className === "line") {
             lastSelect = event.target.id;
         }              
+
+        if (event.target.tagName == "IMG") {
+            lastSelect = event.target.id
+        }
     }
 
     onKeyDown (event) {
@@ -212,7 +216,7 @@ class gcEditor {
                         
                     }
                 } else {
-                    if (ln.tagName == "UL" || ln.tagName == "PRE") {
+                    if (ln.tagName == "UL" || ln.tagName == "PRE" || ln.tagName == "IMG") {
                         if (ln.innerText === '\n') {
                             event.preventDefault();
                             this.deleteLine(ln)
@@ -269,7 +273,7 @@ class gcEditor {
                     var file = (<HTMLInputElement>event.target).files[0];
                     var blob = URL.createObjectURL(file);
                     var img = document.createElement('img');
-                        img.className = "line";
+                        img.className = "line image";
                         img.id = selected.id;
                         img.src = blob;
                         img.contentEditable = "true"
