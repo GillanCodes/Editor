@@ -152,7 +152,8 @@ class gcEditor {
 
         if (event.target.className === "line") {
             lastSelect = event.target.id;
-        }              
+            lastText = window.getSelection().toString();
+        }     
 
         if (event.target.tagName == "IMG") {
             lastSelect = event.target.id
@@ -198,7 +199,6 @@ class gcEditor {
                 }
                 break;
             case keyMap.backSpace:
-                console.log(event.target)
                 var ln = document.getElementById(event.target.id);
                 if (ln === null) {
                     event.preventDefault();
@@ -212,7 +212,6 @@ class gcEditor {
                                 this.deleteLine(notALine)
                             }
                         }
-                        console.log(notALine)
                         
                     }
                 } else {
@@ -248,7 +247,8 @@ class gcEditor {
                 heading.id = selected.id;
                 heading.innerHTML = selected.innerHTML;
                 heading.contentEditable = "true"
-                selected.replaceWith(heading)
+                selected.replaceWith(heading);
+                setCaret(heading.id)
                 break;
             case 'paragraph':
                 var selected = document.getElementById(lastSelect);
@@ -258,6 +258,7 @@ class gcEditor {
                 paragraph.innerHTML = selected.innerHTML;
                 paragraph.contentEditable = "true"
                 selected.replaceWith(paragraph)
+                setCaret(paragraph.id)
                 break;
             case 'picture':
                 var selected = document.getElementById(lastSelect);
@@ -331,6 +332,15 @@ class gcEditor {
             case 'text_right':
                 var selected = document.getElementById(lastSelect);
                 selected.style.textAlign = "right"
+                break;
+            case "bold":
+                document.getElementById(lastSelect).innerHTML = document.getElementById(lastSelect).innerHTML.replace(lastText, `<b>${lastText}</b>`)
+                break;
+            case "italic":
+                document.getElementById(lastSelect).innerHTML = document.getElementById(lastSelect).innerHTML.replace(lastText, `<i>${lastText}</i>`)
+                break;
+            case "underline":
+                document.getElementById(lastSelect).innerHTML = document.getElementById(lastSelect).innerHTML.replace(lastText, `<u>${lastText}</u>`)
                 break;
             default:
                 break;

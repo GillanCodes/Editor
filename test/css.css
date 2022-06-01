@@ -25,6 +25,10 @@
     outline: none;
   }  
 
+  .line {
+    word-wrap: break-word;
+  }
+
   @page {
     margin: 1in;
   }
@@ -68,3 +72,33 @@
   pre.quote br {
     display: inline;
   }
+
+
+
+
+.menu {
+  display: flex;
+  flex-direction: row;
+
+  background-color: #858585;
+
+  height: 40px;
+
+
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+
+  text-align: center;
+  
+
+}
+
+.menu ul li {
+  cursor: pointer;
+  padding: 10px;
+}
