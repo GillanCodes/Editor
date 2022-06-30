@@ -3,6 +3,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 .editor {
   width: 8.5in;
   min-height: 11in;
@@ -12,19 +13,92 @@
   background-color: white;
 }
 
+.line br:first-child {
+  display: inline-block;
+}  
+
 .line br {
   display: none;
-}  
+}
 
 .line:focus {
   outline: none;
-  cursor: text;  
-}
+}  
 
-.line *::after {
-  content: 'bite';
+.line {
+  word-wrap: break-word;
 }
 
 @page {
   margin: 1in;
+}
+
+input[type="file"].line  {
+  display: none;
+}
+
+.UploadButton {
+  display: flex;
+  height: 64px;
+  width: 64px;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 75px;
+  color: white;
+  background-color: rgb(157, 157, 255);
+}
+
+.image {
+  width: 8.5in;
+}
+
+pre.code {
+  background-color: #272822;
+  padding: 10px;
+  color: white;
+}
+
+pre.code br {
+  display: inline;
+}
+
+pre.quote {
+  border-left: #858585 3px solid;
+  border-radius: 2px;
+  padding-left: 5px;
+}
+
+pre.quote br {
+  display: inline;
+}
+
+
+
+
+.menu {
+display: flex;
+flex-direction: row;
+
+background-color: #858585;
+
+height: 40px;
+
+
+}
+
+.menu ul {
+display: flex;
+flex-direction: row;
+list-style: none;
+padding: 0;
+
+text-align: center;
+
+
+}
+
+.menu ul li {
+cursor: pointer;
+padding: 10px;
 }

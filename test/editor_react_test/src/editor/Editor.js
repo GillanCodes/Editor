@@ -13,9 +13,12 @@ const load = () => {
 
 export default function EditorPage() {
 
+  useEffect(() =>  {
+    load()
+  }, [])
+
   return (
     <div>
-        <h1 onClick={load}>Click</h1>
         <div id="gc-menu"></div>
         <div className="editor" id="gc-editor"></div>
     </div>
